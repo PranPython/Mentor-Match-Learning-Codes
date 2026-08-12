@@ -21,22 +21,22 @@ pen.write("5. Exit",font=("Arial",25,"bold"),align="center")
 pen.goto(0,0)
 pen.write("Select an option",font=("Arial",25,"bold"),align="center")
 d = {}
-
-Q = t.numinput("Enter","Enter the number of what you want to do(1-5)")
+def quest():
+    t.numinput("Enter","Enter the number of what you want to do(1-5)")
 while True:
-    if Q == 1:
-        word = t.textinput("Enter","Enter the Word")
+    if quest() == 1:
+        w = t.textinput("Enter","Enter the Word")
         meaning = t.textinput("Enter","Enter The Meaning")
-        d[word]=meaning
+        d[w]=meaning
         ans.goto(0,-100)
         ans.write(("The word has been added"),font=("Arial",25,"bold"),align="center")
         time.sleep(3)
         ans.clear()
-        break
-    elif Q == 2:
+        quest()
+    elif quest() == 2:
         for i,j in d.items():
             pen.write((i,j),font=("Arial",25,"bold"),align="center")
-    elif Q == 5:
+    elif quest() == 5:
         break
 
 
