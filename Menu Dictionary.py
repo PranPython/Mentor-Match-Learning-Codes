@@ -1,80 +1,61 @@
-import turtle as t
-import time
-pen=t.Turtle()
-c=t.Screen()
-c.bgcolor("Black")
-pen.color("Red")
-ans = t.Turtle()
-ans.penup()
-ans.color("Red")
-pen.penup()
-pen.goto(-70,350)
-pen.write("---Menu---",font=("Arial",30,"bold"))
-pen.goto(0,200)
-pen.write("1. Add a word and meaning",font=("Arial",25,"bold"),align="center")
-pen.goto(0,160)
-pen.write("2. View all words",font=("Arial",25,"bold"),align="center")
-pen.goto(0,120)
-pen.write("3. View a word",font=("Arial",25,"bold"),align="center")
-pen.goto(0,80)
-pen.write("4. Delete a Word",font=("Arial",25,"bold"),align="center")
-pen.goto(0,40)
-pen.write("5. Exit",font=("Arial",25,"bold"),align="center")
-pen.goto(0,0)
-pen.write("Select an option",font=("Arial",25,"bold"),align="center")
-d = {}
-def quest():
-    return t.numinput("Enter","Enter the number of what you want to do(1-5)")
+#Add entry
+#View Entry
+#Search entry
+#delete entry
+#exit
+from datetime import datetime
+def add_e():
+  v = input("What would you like to enter in the journal?")
+  f = open("file.txt","a")
+  t = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+  f.write("\n[{}] {}".format(t,v))
+  print("Entry has been saved")
+# View the file
+def view_e():
+  f = open("file.txt","r")
+  for i in f:
+    print(i)
+  f.close()
+# Searching an entry
+def search_e():
+  p = input("Enter a keyword to search")
+  found = False
+  f = open("file.txt","r")
+  print("Your search results are:")
+  for i in f:
+    if p in i:
+      print(i)
+      found = True
+  if found == False:
+    print("The keyword you searched is not available")
+# deleting a file
+def delete_e():
+  file=open("file.txt","r")
+  lines = file.readlines()
+  b = int(input("What line do you want to delete"))
+  if b >= 0 and b < len(lines):
+    del lines[b]
+    print("The line has been deleted")
+    file=open("file.txt","w")
+    for i in lines:
+      file.write(i)
+    file.close()
+  
 while True:
-    choice = quest()
-    if choice == 1:
-        w = t.textinput("Enter","Enter the Word")
-        meaning = t.textinput("Enter","Enter The Meaning")
-        d[w]=meaning
-        ans.goto(0,-100)
-        ans.write(("The word has been added"),font=("Arial",25,"bold"),align="center")
-        time.sleep(3)
-        ans.clear()
-    elif choice == 2:
-        y = -40
-        for i,j in d.items():
-            ans.goto(0,y)
-            ans.write((i,j),font=("Arial",25,"bold"),align="center")
-            time.sleep(5)
-            ans.clear()
-            y = y-40
-    elif choice == 3:
-        z = t.textinput("Enter","What word do you want to view")
-        if z in d:
-            ans.write((z,d[z]),font=("Arial",25,"bold"),align="center")
-            time.sleep(3)
-            ans.clear()
-        else:
-            ans.write("The word you searched is not in the dictionary",font=("Arial",25,"bold"),align="center")
-            time.sleep(3)
-            ans.clear()
-    elif choice == 4:
-        b = t.textinput("Enter","What word do you want to delete?")
-        del d[b]
-        ans.write(("The word has been deleted"),font=("Arial",25,"bold"),align="center")
-        time.sleep(3)
-        ans.clear()
-    elif choice == 5:
-        break
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-c.mainloop()
+  print("---Menu---")
+  print("1. Add entry")
+  print("2. View Entry")
+  print("3. Search entry")
+  print("4. delete entry")
+  print("5. exit")
+  x = int(input("Choose an option(1-5)"))
+  if x == 1:
+    add_e()
+  elif x == 2:
+    view_e()
+  elif x == 3:
+    search_e()
+  elif x == 4:
+    delete_e()
+  elif x == 5:
+    break
