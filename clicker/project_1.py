@@ -12,18 +12,28 @@ def draw():
     meteor.draw()
     screen.draw.text("Destroy the Meteors",center = (750,100),fontsize = 70,color = "red")
     screen.draw.text(message,center = (750,200),fontsize = 70,color = "red")
+# Function missed message
+def miss():
+    global message
+    message = "Missed"
+    rand_p()
+
 # function for random position
 def rand_p():
     meteor.x = random.randint(100,1400)
     meteor.y = random.randint(100,900)
+    clock.schedule_unique(miss,1.5)
 # mouse event
 def on_mouse_down(pos):
     global message
     if meteor.collidepoint(pos):
-        rand_p()
         message = "Boom!"
+        clock.unschedule(miss)
+        rand_p()
+    else:
+        message = "You Missed"
 
-
+rand_p()
 # starting up the game
 pgzrun.go()
 
