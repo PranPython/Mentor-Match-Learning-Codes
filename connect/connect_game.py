@@ -34,6 +34,22 @@ def draw():
     if next_sat < total_sat:
         total_t = time.time() - start_t
         screen.draw.text(str(round(total_t,1)),(20,20),color = "skyblue",fontsize = 40)
+    else:
+        screen.draw.text(str(round(total_t,1)),(20,20),color = "skyblue",fontsize = 40)
+    for q in lines:
+        screen.draw.line(q[0],q[1],"red")
+def on_mouse_down(pos):
+    global lines ,next_sat, no_satelites
+    if next_sat < 6:
+        if no_satelites[next_sat].collidepoint(pos):
+            if next_sat:
+                lines.append((no_satelites[next_sat-1].pos,no_satelites[next_sat].pos))
+            next_sat += 1
+        else:
+            lines = []
+            next_sat = 0
+
+
 
 def update():
     pass
