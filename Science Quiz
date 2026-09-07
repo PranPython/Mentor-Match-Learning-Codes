@@ -1,0 +1,101 @@
+import pgzrun
+
+WIDTH = 1750
+HEIGHT = 1000
+marquee = Rect(0,0,1750,75)
+q_box = Rect(75,100,1250,200)
+timer = Rect(1400,100,300,200)
+opt_1 = Rect(75,350,575,250)
+opt_2 = Rect(800,350,525,250)
+opt_3 = Rect(75,675,575,250)
+opt_4 = Rect(800,675,525,250)
+skip = Rect(1400,350,300,575)
+marquee_mes = ""
+timer_time = 10
+score = 0
+game_over = False
+questions = []
+opt_list = [opt_1,opt_2,opt_3,opt_4]
+count_q = 0
+q_index = 0
+def draw():
+    global marquee_mes
+    screen.fill("Black")
+    screen.draw.filled_rect(marquee,"black")
+    screen.draw.filled_rect(q_box,"sky blue")
+    screen.draw.filled_rect(timer,"light green")
+    screen.draw.filled_rect(opt_1,"red")
+    screen.draw.filled_rect(opt_2,"yellow")
+    screen.draw.filled_rect(opt_3," green")
+    screen.draw.filled_rect(opt_4," blue")
+    screen.draw.filled_rect(skip," white")
+    marquee_mes = "Welcome to the Science Quiz!"
+    # Text boxes
+    screen.draw.textbox(marquee_mes,marquee,color = "grey")
+    screen.draw.textbox(str(timer_time),timer,color = "dark green")
+    screen.draw.textbox("SKIP",skip, color = "black",angle = -90)
+    #Text box for question box
+    screen.draw.textbox(x[0],q_box,color = "black",shadow = (0.5,0.5),scolor = "blue")
+    ind = 1
+    for t in opt_list:
+        screen.draw.textbox(x[ind],t,color = "black",shadow = (0.5,0.5),scolor = "dark green")
+        ind += 1
+def mov_marquee():
+    marquee.x -= 6
+    if marquee.right < 50:
+        marquee.left = 1500
+def timer_time_timing():
+    global timer_time
+    if timer_time > 0:
+        timer_time -= 1
+def update():
+    mov_marquee()
+# FUNCTION FOR READING THE QUESTION FILE
+def read_file():
+    global count_q,questions
+    v = open('Questions.txt',"r")
+    for i in v:
+        questions.append(i)
+        count_q += 1
+    v.close()
+# Function for reading next question
+def next_q():
+    global q_index
+    q_index += 1
+    return questions.pop(0).split(",")
+def on_mouse_down(pos):
+    index_2 = 1
+    for i in opt_list:
+        if i.collidepoint(pos):
+            if index_2 is int(x[5]):
+                correct()
+            else:
+                gameover()
+        index_2 += 1
+    if skip.collidepoint(pos):
+        skiper()
+def correct():
+    global score, x, timer_time, questions
+    score += 1
+    if questions:
+        x = next_q()
+        timer_time += 5
+    else:
+        gameover()
+def gameover():
+    global x, timer_time, game_over, marquee_mes
+    marquee_mes = f"Game Over ): your score was:{score}"
+    x = [marquee_mes,"-","-","-","-",5]
+    timer_time = 0 
+    game_over = True
+clock.schedule_interval(timer_time_timing,1)
+def skiper():
+    global x, timer_time, questions
+    if questions and not game_over:
+        x = next_q()
+        timer_time -= 5
+    else:
+        gameover()
+read_file()
+x = next_q()
+pgzrun.go()
