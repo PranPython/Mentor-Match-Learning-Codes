@@ -92,11 +92,11 @@ def restart():
     global game_over, game_win, target_obj, lvl, current_falling
     for g in current_falling:
         g.active = False
-        game_over = False
-        game_win = False
-        lvl = 1
-        current_falling = []
-        target_obj = None
+    game_over = False
+    game_win = False        
+    lvl = 1
+    current_falling = []
+    target_obj = None
 
 def update():
     global current_falling, lvl
