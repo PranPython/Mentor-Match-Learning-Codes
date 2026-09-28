@@ -27,8 +27,8 @@ clock.schedule_interval(move_rock,2)
 
 
 def mario_move():
-    x = random.randint(100,617)
-    y = random.randint(100,300)
+    x = random.randint(115,600)
+    y = random.randint(115,275)
     mario.target = x,y
     target_ang = mario.angle_to(mario.target)
     target_ang += 360 * ((mario.angle - target_ang + 180) // 360)
@@ -37,7 +37,7 @@ def mario_move():
 def mariomove():
     g = animate(mario, tween = 'accel_decel', pos = mario.target, duration = mario.distance_to(mario.target) / 200, on_finished = mario_move)
     
-mariomove()
+mario_move()
 
 
     
