@@ -1,16 +1,33 @@
 from tkinter import *
 
 scr = Tk()
-scr.geometry("675x125")
+scr.geometry("605x125")
 
-entr_weight = Label(scr,text = "Enter the weight in KGs",font =("Times new roman",17),fg = "Black")
+def convert():
+    weight_inp = float(weight.get())
+    g_conv = weight_inp * 1000
+    p_conv = weight_inp * 2.20462
+    o_conv = weight_inp * 35.274
+    gtxt.delete("1.0",END)
+    gtxt.insert(END,g_conv)
+    ptxt.delete("1.0",END)
+    ptxt.insert(END,p_conv)
+    otxt.delete("1.0",END)
+    otxt.insert(END,o_conv)
+
+
+
+
+entr_weight = Label(scr,text = "Enter the weight in KGs",font =("Times new roman",15),fg = "Black")
 entr_weight.grid(row = 0,column = 0)
 
 weight = Entry(scr,font = ("Times new roman",15),fg = "black")
 weight.grid(row = 0,column = 1)
 
-conv = Button(scr,text = "Convert",font = ("Times new roman",17),fg = "black")
+conv = Button(scr,text = "Convert",font = ("Times new roman",17),fg = "black", command = convert)
 conv.grid(row = 0,column = 2)
+
+
 
 g = Label(scr,text = "Grams",font = ("Times new roman",15),fg = "Black")
 g.grid(row = 1,column = 0)
