@@ -2,7 +2,7 @@ from tkinter import *
 import random as rd
 
 scr = Tk()
-scr.geometry("700x500")
+scr.geometry("750x500")
 
 Score_plyr = 0
 Score_comp = 0
@@ -13,23 +13,23 @@ def comp_win():
     global Score_comp , Score_plyr
     Score_comp += 1
     res.config(text = "You lose")
-    comp_scr_lbl.config(text = "Computer Score:----" + str(Score_comp))
-    Score_plyr.config(text = "Your Score:----" + str(Score_plyr))
+    comp_scr_lbl.config(text = "Computer Score:" + str(Score_comp))
+    me_scr_lbl.config(text = "Your Score:" + str(Score_plyr))
 
 # Computer loses
 def comp_lose():
     global Score_comp , Score_plyr
     Score_plyr += 1
     res.config(text = "You win")
-    comp_scr_lbl.config(text = "Computer Score:----" + str(Score_comp))
-    Score_plyr.config(text = "Your Score:----" + str(Score_plyr))
+    comp_scr_lbl.config(text = "Computer Score:" + str(Score_comp))
+    me_scr_lbl.config(text = "Your Score:" + str(Score_plyr))
 
 # Computer Ties
 def comp_tie():
     global Score_comp , Score_plyr
     res.config(text = "Tie")
-    comp_scr_lbl.config(text = "Computer Score:----" + str(Score_comp))
-    Score_plyr.config(text = "Your Score:----" + str(Score_plyr))
+    comp_scr_lbl.config(text = "Computer Score:" + str(Score_comp))
+    me_scr_lbl.config(text = "Your Score:" + str(Score_plyr))
 
 # Computer Choice
 def comp_choice():
@@ -39,26 +39,26 @@ def comp_choice():
 def plyr_choice(plyr_inp):
     global Score_comp, Score_plyr, me_slct_lbl, comp_slct_lbl
     comp_inp = comp_choice()
-    me_slct_lbl.config(text = "Your Selected:----"+ plyr_inp[0])
-    comp_slct_lbl.config(text = "Computer Selected:----"+ comp_inp[0])
+    me_slct_lbl.config(text = "Your Selected:"+ plyr_inp[0])
+    comp_slct_lbl.config(text = "Computer Selected:"+ comp_inp[0])
     if comp_inp == plyr_inp:
         comp_tie()
     if plyr_inp[1] == 0:
         if comp_inp[1] == 1:
             comp_win()
-        elif comp_inp == 2:
+        elif comp_inp[1] == 2:
             comp_lose()
 
     elif plyr_inp[1] == 1:
             if comp_inp[1] == 2:
                 comp_win()
-            elif comp_inp == 0:
+            elif comp_inp[1] == 0:
                 comp_lose()
 
     elif plyr_inp[1] == 2:
             if comp_inp[1] == 0:
                 comp_win()
-            elif comp_inp == 1:
+            elif comp_inp[1] == 1:
                 comp_lose()
 
 
@@ -72,30 +72,30 @@ PS_lbl.place(x = 235,y = 50)
 opt_lbl = Label(scr,text = "Your options:",font = ("TImes New Roman",25),fg = "Grey")
 opt_lbl.place(x = 50,y = 150)
 
-R_btn = Button(scr,text = "Rock",font = ("TImes New Roman",25),fg = "black",bg = "RED",command = plyr_choice(Options[0]))
+R_btn = Button(scr,text = "Rock",font = ("TImes New Roman",25),fg = "black",bg = "RED",command = lambda: plyr_choice(Options[0]))
 R_btn.place(x = 175,y = 200)
 
 
-p_btn = Button(scr,text = "Paper",font = ("TImes New Roman",25),fg = "black",bg = "RED",command = plyr_choice(Options[1]))
+p_btn = Button(scr,text = "Paper",font = ("TImes New Roman",25),fg = "black",bg = "RED",command = lambda: plyr_choice(Options[1]))
 p_btn.place(x = 325,y = 200)
 
-s_btn = Button(scr,text = "Scissors",font = ("TImes New Roman",25),fg = "black",bg = "RED",command = plyr_choice(Options[2]))
+s_btn = Button(scr,text = "Scissors",font = ("TImes New Roman",25),fg = "black",bg = "RED",command = lambda: plyr_choice(Options[2]))
 s_btn.place(x = 475,y = 200)
 
 src_lbl = Label(scr,text = "Your Score:",font = ("TImes New Roman",25),fg = "Grey")
 src_lbl.place(x = 50,y = 285)
 
 me_slct_lbl = Label(scr,text = "Your Selected:----",font = ("TImes New Roman",25),fg = "Black")
-me_slct_lbl.place(x = 125,y = 350)
+me_slct_lbl.place(x = 50,y = 350)
 
 comp_slct_lbl = Label(scr,text = "Computer Selected:----",font = ("TImes New Roman",25),fg = "Black")
-comp_slct_lbl.place(x = 385,y = 350)
+comp_slct_lbl.place(x = 370,y = 350)
 
 me_scr_lbl = Label(scr,text = "Your Score:----",font = ("TImes New Roman",25),fg = "Black")
-me_scr_lbl.place(x = 125,y = 400)
+me_scr_lbl.place(x = 50,y = 400)
 
 comp_scr_lbl = Label(scr,text = "Computer Score:----",font = ("TImes New Roman",25),fg = "Black")
-comp_scr_lbl.place(x = 385,y = 400)
+comp_scr_lbl.place(x = 370 ,y = 400)
 
 res = Label(scr,text = "",font = ("TImes New Roman",25),fg = "Green")
 res.place(x = 285,y = 100)
